@@ -19,7 +19,17 @@ namespace Space
         public MainWindow()
         {
             InitializeComponent();
+            
+            GameArea.Children.Add(ball.Shape);
+            ball.PlaceObject();
             RunGame();
+        }
+        
+        private void RunGame()
+        {
+            gameTickTimer.Tick += GameTickTimerOnTick;
+            gameTickTimer.Interval = TimeSpan.FromMilliseconds(5);
+            gameTickTimer.IsEnabled = true;
         }
 
         private void GameTickTimerOnTick(object sender, EventArgs e)
@@ -34,20 +44,6 @@ namespace Space
             
             ball.PlaceObject();
         }
-
-        private void RunGame()
-        {
-            
-            gameTickTimer.Tick += GameTickTimerOnTick;
-            gameTickTimer.Interval = TimeSpan.FromMilliseconds(5);
-            gameTickTimer.IsEnabled = true;
-        }
-
-        private void MainWindow_OnContentRendered(object sender, EventArgs e)
-        {
-            GameArea.Children.Add(ball.Shape);
-        }
-
     }
 
     internal class PhysicalObject
