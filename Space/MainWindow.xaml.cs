@@ -8,7 +8,7 @@
         public MainWindow()
         {
             InitializeComponent();
-            var space = new SpaceRunner(GameArea);
+            var space = new SpaceRunner(GameArea, false);
             space.Run();
         }
     }

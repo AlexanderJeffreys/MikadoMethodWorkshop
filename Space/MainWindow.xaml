@@ -6,7 +6,7 @@
         mc:Ignorable="d"  
         Title="Space" SizeToContent="WidthAndHeight">  
     <Border BorderBrush="Black" BorderThickness="5">  
-        <Canvas Name="GameArea" ClipToBounds="True" Width="800" Height="800">  
+        <Canvas Name="GameArea" ClipToBounds="True" Width="800" Height="800" Background="Black">  
 
         </Canvas>  
     </Border>  
