@@ -25,7 +25,6 @@ namespace Space
         private void GameTickTimerOnTick(object sender, EventArgs e)
         {
             MoveObjects();
-            DrawCanvas();
         }
 
         private void MoveObjects()
@@ -33,7 +32,7 @@ namespace Space
             ball.x += 1;
             ball.y += 1;
             
-            ball.PaintPhysicalObject();
+            ball.PlaceObject();
         }
 
         private void RunGame()
@@ -47,13 +46,8 @@ namespace Space
         private void MainWindow_OnContentRendered(object sender, EventArgs e)
         {
             GameArea.Children.Add(ball.Shape);
-            DrawCanvas();
         }
 
-        private void DrawCanvas()
-        {
-            ball.PaintPhysicalObject();
-        }
     }
 
     internal class PhysicalObject
@@ -78,7 +72,7 @@ namespace Space
             };
         }
 
-        public void PaintPhysicalObject()
+        public void PlaceObject()
         {
             Canvas.SetTop(Shape, x);
             Canvas.SetLeft(Shape, y);
