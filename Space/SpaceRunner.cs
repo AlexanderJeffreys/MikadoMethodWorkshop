@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace Space
@@ -26,21 +27,13 @@ namespace Space
 
         private void Setup()
         {
+            _canvas.Background = Brushes.Black;
+            
             _canvas.Children.Add(_ball.Shape);
             _ball.PlaceObject();
         }
         
         private void GameTickTimerOnTick(object sender, EventArgs e)
-        {
-            Step();
-        }
-        
-        private void Step()
-        {
-            MoveObjects();
-        }
-        
-        private void MoveObjects()
         {
             _ball.x += 1;
             _ball.y += 1;
