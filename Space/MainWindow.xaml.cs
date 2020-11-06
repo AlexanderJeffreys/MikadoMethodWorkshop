@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -12,37 +11,13 @@ namespace Space
     /// </summary>
     public partial class MainWindow
     {
-        private static PhysicalObject ball = new PhysicalObject(100, 100);
         
-        private DispatcherTimer gameTickTimer = new DispatcherTimer();
-        
+
         public MainWindow()
         {
             InitializeComponent();
-            
-            GameArea.Children.Add(ball.Shape);
-            ball.PlaceObject();
-            RunGame();
-        }
-        
-        private void RunGame()
-        {
-            gameTickTimer.Tick += GameTickTimerOnTick;
-            gameTickTimer.Interval = TimeSpan.FromMilliseconds(5);
-            gameTickTimer.IsEnabled = true;
-        }
-
-        private void GameTickTimerOnTick(object sender, EventArgs e)
-        {
-            MoveObjects();
-        }
-
-        private void MoveObjects()
-        {
-            ball.x += 1;
-            ball.y += 1;
-            
-            ball.PlaceObject();
+            var space = new SpaceRunner(GameArea);
+            space.Run();
         }
     }
 
@@ -72,6 +47,51 @@ namespace Space
         {
             Canvas.SetTop(Shape, x);
             Canvas.SetLeft(Shape, y);
+        }
+    }
+
+    internal class SpaceRunner
+    {
+        private readonly Canvas _canvas;
+        private readonly PhysicalObject _ball = new PhysicalObject(100, 100);
+
+        public SpaceRunner(Canvas canvas)
+        {
+            _canvas = canvas;
+        }
+        
+        public void Run()
+        {
+            Setup();
+            
+            var gameTickTimer = new DispatcherTimer();
+            gameTickTimer.Tick += GameTickTimerOnTick;
+            gameTickTimer.Interval = TimeSpan.FromMilliseconds(5);
+            gameTickTimer.IsEnabled = true;
+        }
+
+        private void Setup()
+        {
+            _canvas.Children.Add(_ball.Shape);
+            _ball.PlaceObject();
+        }
+        
+        private void GameTickTimerOnTick(object sender, EventArgs e)
+        {
+            Step();
+        }
+        
+        private void Step()
+        {
+            MoveObjects();
+        }
+        
+        private void MoveObjects()
+        {
+            _ball.x += 1;
+            _ball.y += 1;
+            
+            _ball.PlaceObject();
         }
     }
 }
