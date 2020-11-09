@@ -138,11 +138,18 @@ namespace Space
             
             PlaceObjectsOnCanvas();
         }
-
-
-        public static Brush WeightToColour(double mass)
-        {
-            return Brushes.Chartreuse;
+        
+        public static Brush WeightToColour(double weight) {
+            if (weight < 1e10) return Brushes.Green;
+            if (weight < 1e12) return Brushes.Cyan;
+            if (weight < 1e14) return Brushes.Magenta;
+            if (weight < 1e16) return Brushes.Blue;
+            if (weight < 1e18) return Brushes.Gray;
+            if (weight < 1e20) return Brushes.Red;
+            if (weight < 1e22) return Brushes.Orange;
+            if (weight < 1e25) return Brushes.Pink;
+            if (weight < 1e28) return Brushes.Yellow;
+            return Brushes.White;
         }
     }
 }
