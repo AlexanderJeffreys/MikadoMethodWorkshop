@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -14,7 +15,7 @@ namespace Space
         public static bool IsBouncingBalls;
         
         private static readonly double G = 6.67428e-11; // m3/kgs2
-        public double Seconds { get; set; } = 1;
+        public static double Seconds { get; set; } = 1;
 
         private const double AstronomicalUnit = 149597870.7e3;
         public const double EarthWeight = 5.9736e24;
@@ -99,8 +100,67 @@ namespace Space
 
         private void GameTickTimerOnTick(object sender, EventArgs e)
         {
+            Collide();
             Step();
         }
+
+        private void Collide()
+        {
+            var remove = new List<PhysicalObject>();
+            foreach (var one in _objects) {
+                if (remove.Contains(one))
+                {
+                    continue;
+                }
+                
+                foreach (var other in _objects) {
+                    if (one == other || remove.Contains(other))
+                    {
+                        continue;
+                    }   
+                    
+                    if (!IsBouncingBalls) {
+                        if (Math.Sqrt(Math.Pow(one.X - other.X, 2) + Math.Pow(one.Y - other.Y, 2)) < 5e9) {
+                            one.Absorb(other);
+                            remove.Add(other);
+                        }
+                    } 
+                    else 
+                    {
+                        var distance = Math.Sqrt(Math.Pow(one.X - other.X, 2) + Math.Pow(one.Y - other.Y, 2));
+                        var collisionDistance = one.Radius + other.Radius;
+                        if (distance < collisionDistance) {
+                            one.HitBy(other);
+                        }
+                    }
+                }
+                // Wall collision reverses speed in that direction
+                if (IsBouncingBalls) {
+                    if (one.X - one.Radius < 0) {
+                        one.Vx = -one.Vx;
+                    }
+                    if (one.X + one.Radius > 800) {
+                        one.Vx = -one.Vx;
+                    }
+                    if (one.Y - one.Radius < 0) {
+                        one.Vy = -one.Vy;
+                    }
+                    if (one.Y + one.Radius > 800 && !IsBreakout) {
+                        one.Vy = -one.Vy;
+                    } else if (one.Y - one.Radius > 800) {
+                        remove.Add(one);
+                    }
+                }
+            }
+
+            _objects = _objects.Except(remove).ToList();
+            foreach (var obj in remove)
+            {
+                obj.RemoveFromCanvas(Canvas);
+            }
+        }
+
+        public bool IsBreakout { get; set; }
 
         private void Step()
         {
