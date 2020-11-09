@@ -8,22 +8,22 @@ namespace Space
     {
         private readonly double _radius;
 
-        private readonly Shape _shape; 
+        private readonly Shape _shape;
 
-        private readonly double _mass;
-        private readonly double _x;
-        private readonly double _y;
-        private readonly double _vx;
-        private readonly double _vy;
-        
+        public double Mass { get; }
+        public double X { get; set; }
+        public double Y { get; set; }
+        public double Vx { get; set; }
+        public double Vy { get; set; }
+
         public PhysicalObject(double weightKilos, double x, double y, double vx, double vy, double radius)
         {
             _radius = radius;
-            _mass = weightKilos;
-            _x = x;
-            _y = y;
-            _vx = vx;
-            _vy = vy;
+            Mass = weightKilos;
+            X = x;
+            Y = y;
+            Vx = vx;
+            Vy = vy;
             _shape = new Ellipse
             {
                 Width = radius * 2,
@@ -40,10 +40,10 @@ namespace Space
         {
             if (!SpaceRunner.IsBouncingBalls)
             {
-                _shape.Fill = SpaceRunner.WeightToColour(_mass);
-                var diameter = _mass >= SpaceRunner.EarthWeight * 10000 ? 7 : 2;
-                var xtmp = (int) ((_x - SpaceRunner.CenterX) / SpaceRunner.Scale + SpaceRunner.Canvas.Width / 2);
-                var ytmp = (int) ((_y - SpaceRunner.CenterY) / SpaceRunner.Scale + SpaceRunner.Canvas.Height / 2);
+                _shape.Fill = SpaceRunner.WeightToColour(Mass);
+                var diameter = Mass >= SpaceRunner.EarthWeight * 10000 ? 7 : 2;
+                var xtmp = (int) ((X - SpaceRunner.CenterX) / SpaceRunner.Scale + SpaceRunner.Canvas.Width / 2);
+                var ytmp = (int) ((Y - SpaceRunner.CenterY) / SpaceRunner.Scale + SpaceRunner.Canvas.Height / 2);
                 
                 Canvas.SetTop(_shape, xtmp - diameter/2);
                 Canvas.SetLeft(_shape, ytmp - diameter/2);
@@ -52,8 +52,8 @@ namespace Space
             {
                 _shape.Fill = Brushes.White;
                 
-                var xtmp = (int) (_x - SpaceRunner.CenterX  + SpaceRunner.Canvas.Width / 2);
-                var ytmp = (int) (_y - SpaceRunner.CenterY  + SpaceRunner.Canvas.Height / 2);
+                var xtmp = (int) (X - SpaceRunner.CenterX  + SpaceRunner.Canvas.Width / 2);
+                var ytmp = (int) (Y - SpaceRunner.CenterY  + SpaceRunner.Canvas.Height / 2);
                 
                 Canvas.SetTop(_shape, xtmp - _radius);
                 Canvas.SetLeft(_shape, ytmp - _radius);
