@@ -44,7 +44,9 @@ namespace Space
                 var diameter = Mass >= SpaceRunner.EarthWeight * 10000 ? 7 : 2;
                 var xtmp = (int) ((X - SpaceRunner.CenterX) / SpaceRunner.Scale + SpaceRunner.Canvas.Width / 2);
                 var ytmp = (int) ((Y - SpaceRunner.CenterY) / SpaceRunner.Scale + SpaceRunner.Canvas.Height / 2);
-                
+
+                _shape.Height = diameter;
+                _shape.Width = diameter;
                 Canvas.SetTop(_shape, xtmp - diameter/2);
                 Canvas.SetLeft(_shape, ytmp - diameter/2);
             }
