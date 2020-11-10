@@ -13,6 +13,7 @@ namespace Space
         private int _numberOfObjects = 75;
         private static List<PhysicalObject> _objects = new List<PhysicalObject>();
         public static bool IsBouncingBalls;
+        private bool IsBreakout { get; }
         
         private static readonly double G = 6.67428e-11; // m3/kgs2
         public static double Seconds { get; set; } = 1;
@@ -20,16 +21,17 @@ namespace Space
         private const double AstronomicalUnit = 149597870.7e3;
         public const double EarthWeight = 5.9736e24;
 
-        public static double CenterX = 0.0;
-        public static double CenterY = 0.0;
+        public static double CenterX;
+        public static double CenterY;
         public static double Scale = 10;
         private readonly Random _random = new Random();
 
 
-        public SpaceRunner(Canvas canvas, bool isBouncingBalls)
+        public SpaceRunner(Canvas canvas, bool isBouncingBalls, bool isBreakout)
         {
             Canvas = canvas;
             IsBouncingBalls = isBouncingBalls;
+            IsBreakout = isBreakout;
             Setup();
         }
         
@@ -103,7 +105,7 @@ namespace Space
                 }
                 Scale = 1;
                 CenterX = 400;
-                CenterY = 390; //Must compensate for title bar
+                CenterY = 400; //Must compensate for title bar
             }
         }
 
@@ -181,8 +183,6 @@ namespace Space
                 obj.RemoveFromCanvas(Canvas);
             }
         }
-
-        public bool IsBreakout { get; set; }
 
         private void Step()
         {

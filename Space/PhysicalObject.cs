@@ -63,8 +63,8 @@ namespace Space
                 var xTmp = (int) (X - SpaceRunner.CenterX + SpaceRunner.Canvas.Width / 2);
                 var yTmp = (int) (Y - SpaceRunner.CenterY + SpaceRunner.Canvas.Height / 2);
 
-                Canvas.SetTop(_shape, xTmp - Radius);
-                Canvas.SetLeft(_shape, yTmp - Radius);
+                Canvas.SetLeft(_shape, xTmp - Radius);
+                Canvas.SetTop(_shape, yTmp - Radius);
             }
         }
 
