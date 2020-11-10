@@ -47,6 +47,10 @@ namespace Space
             {
                 Seconds = 3600 * 24 * 7;
             }
+            else
+            {
+                Seconds = 1;
+            }
             
             AddInitialObjects();
             PlaceObjectsOnCanvas();
@@ -82,6 +86,24 @@ namespace Space
                 }
                 
                 Add(EarthWeight * 20000, 0, 0, 0, 0, 1);
+            }
+            else
+            {
+                _numberOfObjects = 50;
+                for (var i = 0; i < _numberOfObjects; i++) {
+                    // radius,weight in [1,20]
+                    var radiusAndWeight = 1 + 19 * _random.NextDouble();
+                    //x,y in [max radius, width or height - max radius]
+                    Add(radiusAndWeight,
+                        20 + 760 * _random.NextDouble(),
+                        20 + 760 * _random.NextDouble(),
+                        3 - 6 * _random.NextDouble(),
+                        3 - 6 * _random.NextDouble(),
+                        radiusAndWeight);
+                }
+                Scale = 1;
+                CenterX = 400;
+                CenterY = 390; //Must compensate for title bar
             }
         }
 

@@ -83,13 +83,13 @@ namespace Space
             // find collision point by backstepping
 
             //backstep increment
-            double s = -SpaceRunner.Seconds / 10;
+            var s = -SpaceRunner.Seconds / 10;
             //total backstep size to be found incrementally
-            double dt = 0;
+            var dt = 0.0;
             //vector from this object to the other object
             double[] new12 = {X - other.X, Y - other.Y};
             // new distance
-            double d = Math.Sqrt(new12[0] * new12[0] + new12[1] * new12[1]);
+            var d = Math.Sqrt(new12[0] * new12[0] + new12[1] * new12[1]);
             // backstep to find collision point
             while (d < Radius + other.Radius)
             {
@@ -98,6 +98,51 @@ namespace Space
                 new12[1] = new12[1] + s * (Vy - other.Vy);
                 d = Math.Sqrt(new12[0] * new12[0] + new12[1] * new12[1]);
             }
+            
+            // simplify variables
+            var m1 = other.Mass;
+            var vx1 = other.Vx;
+            var vy1 = other.Vy;
+            // point of impact for other object
+            var x1 = other.X + dt * vx1;
+            var y1 = other.Y + dt * vy1;
+
+            var m2 = Mass;
+            var vx2 = Vx;
+            var vy2 = Vy;
+            // point of impact for this object
+            var x2 = X + dt * vx2;
+            var y2 = Y + dt * vy2;
+
+            // direction of impact
+            double[] p12 = {x2 - x1, y2 - y1};
+            // normalize p12 to length 1
+            var p12_abs = Math.Sqrt(p12[0] * p12[0] + p12[1] * p12[1]);
+            double[] p12n = {p12[0] / p12_abs, p12[1] / p12_abs};
+
+            // factor in calculation
+            var c = p12n[0] * (vx1 - vx2) + p12n[1] * (vy1 - vy2);
+            // fully elastic
+            var e = 1;
+            // new speeds
+            double[] v1prim = {vx1 - p12n[0] * (1 + e) * (m2 * c / (m1 + m2)),
+                vy1 - p12n[1] * (1 + e) * (m2 * c / (m1 + m2))};
+            double[] v2prim = {vx2 + p12n[0] * (1 + e) * (m1 * c / (m1 + m2)),
+                vy2 + p12n[1] * (1 + e) * (m1 * c / (m1 + m2))};
+
+            // set variables back
+            Vx = v2prim[0];
+            Vy = v2prim[1];
+
+            other.Vx = v1prim[0];
+            other.Vy = v1prim[1];
+
+            // step forward to where the objects should be
+            X += v2prim[0] * (-dt);
+            Y += v2prim[1] * (-dt);
+
+            other.X += v1prim[0] * (-dt);
+            other.Y += v1prim[1] * (-dt);
         }
     }
 }
