@@ -5,6 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"  
         Title="Space" SizeToContent="WidthAndHeight">  
-        <Canvas Name="GameArea" ClipToBounds="True" Width="800" Height="800" Background="Black">  
+        <Canvas Name="GameArea" 
+                ClipToBounds="True" 
+                Width="800"
+                Height="800"
+                Background="Black"
+                MouseWheel="GameArea_OnMouseWheel"
+                MouseMove="GameArea_OnMouseMove"
+                MouseUp="GameArea_OnMouseUp">  
         </Canvas>  
 </Window>

@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -232,6 +235,14 @@ namespace Space
             if (weight < 1e25) return Brushes.Pink;
             if (weight < 1e28) return Brushes.Yellow;
             return Brushes.White;
+        }
+
+        public static void Zoom(int direction)
+        {
+            if (!IsBouncingBalls)
+            {
+                Scale *= Math.Pow(1.1, direction);
+            }
         }
     }
 }

@@ -53,8 +53,8 @@ namespace Space
 
                 _shape.Height = diameter;
                 _shape.Width = diameter;
-                Canvas.SetTop(_shape, xTmp - diameter / 2);
-                Canvas.SetLeft(_shape, yTmp - diameter / 2);
+                Canvas.SetLeft(_shape, xTmp - diameter / 2);
+                Canvas.SetTop(_shape, yTmp - diameter / 2);
             }
             else // Breakout
             {
