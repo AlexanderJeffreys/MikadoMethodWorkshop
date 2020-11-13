@@ -8,18 +8,16 @@ namespace Space
     /// </summary>
     public partial class MainWindow
     {
-        private SpaceRunner _runner;
-        
         public MainWindow()
         {
             InitializeComponent();
-            _runner = new SpaceRunner(GameArea, false, true);
-            _runner.Run();
+            var runner = new SpaceRunner(GameArea, false, true);
+            runner.Run();
         }
 
         private void GameArea_OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
-            SpaceRunner.Zoom(Math.Sign(e.Delta));
+            SpaceRunner.Zoom(-Math.Sign(e.Delta));
         }
 
         private void GameArea_OnMouseMove(object sender, MouseEventArgs e)
