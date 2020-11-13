@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows.Input;
 
 namespace Space
@@ -24,10 +24,15 @@ namespace Space
 
         private void GameArea_OnMouseMove(object sender, MouseEventArgs e)
         {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                SpaceRunner.Drag(e.GetPosition(GameArea));
+            }
         }
 
         private void GameArea_OnMouseUp(object sender, MouseButtonEventArgs e)
         {
+            SpaceRunner.StopDragging();
         }
     }
 }

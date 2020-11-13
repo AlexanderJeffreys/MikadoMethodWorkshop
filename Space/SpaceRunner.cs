@@ -244,5 +244,27 @@ namespace Space
                 Scale *= Math.Pow(1.1, direction);
             }
         }
+
+        private static Point? _lastDrag;
+
+        public static void Drag(Point position)
+        {
+            if (!IsBouncingBalls)
+            {
+                if (_lastDrag == null)
+                {
+                    _lastDrag = position;
+                }
+                
+                CenterX -= (position.X - _lastDrag.Value.X) * Scale;
+                CenterY -= (position.Y - _lastDrag.Value.Y) * Scale;
+                _lastDrag = position;
+            }
+        }
+
+        public static void StopDragging()
+        {
+            _lastDrag = null;
+        }
     }
 }
