@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -29,6 +27,7 @@ namespace Space
         public static double Scale = 10;
         private readonly Random _random = new Random();
 
+        private static Point? _lastDrag;
 
         public SpaceRunner(Canvas canvas, bool isBouncingBalls, bool isBreakout)
         {
@@ -37,7 +36,7 @@ namespace Space
             IsBreakout = isBreakout;
             Setup();
         }
-        
+
         public void Run()
         {
             var gameTickTimer = new DispatcherTimer();
@@ -223,7 +222,7 @@ namespace Space
             
             PlaceObjectsOnCanvas();
         }
-        
+
         public static Brush WeightToColour(double weight) {
             if (weight < 1e10) return Brushes.Green;
             if (weight < 1e12) return Brushes.Cyan;
@@ -244,8 +243,6 @@ namespace Space
                 Scale *= Math.Pow(1.1, direction);
             }
         }
-
-        private static Point? _lastDrag;
 
         public static void Drag(Point position)
         {

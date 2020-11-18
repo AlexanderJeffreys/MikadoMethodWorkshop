@@ -9,7 +9,7 @@ namespace Space
     {
         public double Radius { get; }
 
-        private readonly Shape _shape;
+        private Shape _shape;
 
         public double Mass { get; set; }
         public double X { get; set; }
@@ -25,15 +25,15 @@ namespace Space
             Y = y;
             Vx = vx;
             Vy = vy;
-            _shape = new Ellipse
-            {
-                Width = radius * 2,
-                Height = radius * 2
-            };
         }
 
         public void AddToCanvas(Canvas canvas)
         {
+            _shape = new Ellipse
+            {
+                Width = Radius * 2,
+                Height = Radius * 2
+            };
             canvas.Children.Add(_shape);
         }
 
