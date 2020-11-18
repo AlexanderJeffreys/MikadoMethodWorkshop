@@ -68,7 +68,7 @@ namespace Space
             }
         }
 
-        public void Absorb(PhysicalObject other)
+        public PhysicalObject Absorb(PhysicalObject other)
         {
             var totalMass = Mass + other.Mass;
             X = (X * Mass + other.X * other.Mass) / totalMass;
@@ -76,6 +76,7 @@ namespace Space
             Vx = (Vx * Mass + other.Vx * other.Mass) / totalMass;
             Vy = (Vy * Mass + other.Vy * other.Mass) / totalMass;
             Mass = totalMass;
+            return this;
         }
 
         public void HitBy(PhysicalObject other)

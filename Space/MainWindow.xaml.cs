@@ -11,7 +11,9 @@ namespace Space
         public MainWindow()
         {
             InitializeComponent();
-            var runner = new SpaceRunner(GameArea, false, true);
+            var runner = new SpaceRunner(true, false);
+            runner.SetCanvas(GameArea);
+            runner.Setup();
             runner.Run();
         }
 

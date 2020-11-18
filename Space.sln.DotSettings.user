@@ -2,5 +2,7 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d2a7f36b_002Ddd8b_002D41d8_002D87f9_002D73e3ce9878dd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TestBounce" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::DFDB423C-A183-43FD-9B62-53AF64F4C8A5::.NETFramework,Version=v4.7.2::Space.Tests.TestBounce&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DFDB423C-A183-43FD-9B62-53AF64F4C8A5::.NETFramework,Version=v4.7.2::Space.Tests.TestGravitation&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DFDB423C-A183-43FD-9B62-53AF64F4C8A5::.NETFramework,Version=v4.7.2::Space.Tests.TestMergeObjects&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

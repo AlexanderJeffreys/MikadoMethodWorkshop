@@ -57,6 +57,8 @@
         </ApplicationDefinition>
         <Compile Include="SpaceRunner.cs" />
         <Compile Include="Tests\TestBounce.cs" />
+        <Compile Include="Tests\TestGravitation.cs" />
+        <Compile Include="Tests\TestMergeObjects.cs" />
         <Page Include="MainWindow.xaml">
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>

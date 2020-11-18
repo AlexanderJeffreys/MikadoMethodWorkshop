@@ -29,12 +29,15 @@ namespace Space
 
         private static Point? _lastDrag;
 
-        public SpaceRunner(Canvas canvas, bool isBouncingBalls, bool isBreakout)
+        public SpaceRunner(bool isBouncingBalls, bool isBreakout)
         {
-            Canvas = canvas;
             IsBouncingBalls = isBouncingBalls;
             IsBreakout = isBreakout;
-            Setup();
+        }
+
+        public void SetCanvas(Canvas canvas)
+        {
+            Canvas = canvas;
         }
 
         public void Run()
@@ -45,7 +48,7 @@ namespace Space
             gameTickTimer.IsEnabled = true;
         }
 
-        private void Setup()
+        public void Setup()
         {
             if (!IsBouncingBalls)
             {
@@ -62,6 +65,10 @@ namespace Space
 
         private void PlaceObjectsOnCanvas()
         {
+            if (Canvas == null)
+            {
+                return;
+            }
             foreach (var physicalObject in _objects)
             {
                 physicalObject.Display();
@@ -73,7 +80,7 @@ namespace Space
             if (!IsBouncingBalls)
             {
                 var outerLimit = AstronomicalUnit * 20;
-                Scale = outerLimit / Canvas.Width;
+                Scale = outerLimit / Canvas?.Width ?? 400;
                 
                 for (var i = 0; i < _numberOfObjects; i++)
                 {
@@ -111,11 +118,15 @@ namespace Space
             }
         }
 
-        private static void Add(double weightKilos, double x, double y, double vx, double vy, double radius)
+        public static PhysicalObject Add(double weightKilos, double x, double y, double vx, double vy, double radius)
         {
             var physicalObject = new PhysicalObject(weightKilos, x, y, vx, vy, radius);
             _objects.Add(physicalObject);
-            physicalObject.AddToCanvas(Canvas);
+            if (Canvas != null)
+            {
+                physicalObject.AddToCanvas(Canvas);
+            }
+            return physicalObject;
         }
 
         private double RandSquare()
@@ -186,7 +197,7 @@ namespace Space
             }
         }
 
-        private void Step()
+        public void Step()
         {
             if (!IsBouncingBalls) {
                 foreach (var obj in _objects) {
